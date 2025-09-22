@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 /*Ejercicio 3
@@ -38,12 +39,38 @@ public:
 		}
 	}
 	
+	void CambioCoeficiente(float indice, int valor){
+		*(coef+indice) = valor; // o coef[indice] = valor;
+	}
 	
+	float EvaluarEn(float x){
+		float resultado = 0.0;
+		for(int i=0 ; i<=grado ; i++) { 
+			resultado += *(coef+i) * pow(x,i);
+		}
+		return resultado;
+	}
+	
+	void Mostrar() {
+	for (int i = 0; i <= grado; i++) {
+		// Saltamos los coeficientes son 0
+		if (coef[i] == 0) { continue;}
+		if (i == 0) cout << coef[i];
+		else if (i == 1) cout << " + " << coef[i] << "x";
+		else cout << " + " << coef[i] << "x^" << i;
+	}
+	cout << endl;
+	}
+	
+	Polinomio Sumar(const Polinomio &p1, const Polinomio &p2){
+		
+	}
 	
 	/// Destructor para liberar memoria
 	~Polinomio(){
 		delete [] coef;
 	}
+	
 };
 
 int main() {
@@ -52,4 +79,7 @@ int main() {
 	
 	return 0;
 }
+
+}
+
 
