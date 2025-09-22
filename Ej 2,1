@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+const float pi = 3.1416;
+/*Ejercicio 1
+Diseñe una clase Cilindro que modele un cilindro con el objetivo de calcular el volumen del cuerpo conociendo el
+radio de su base y la altura del mismo.
+1. La interfaz pública de la clase debe estar compuesta por los métodos AsignarDatos(...) y Obtenervolumen(...)
+para asignar los datos del problema y obtener el volumen del cuerpo.
+2. Escriba un programa cliente que utilice dicha clase. Defina 2 instancias de Cilindro llamadas c1 y c2. El objeto
+c1 debe utilizar datos ingresados por el usuario, mientras que para c2 utilice 5.3cm y 10.2cm para el radio y la
+altura respectivamente.
+3. Agregue un constructor a la clase Cilindro que reciba 2 parámetros para inicializar el radio y la altura. Luego
+intente compilar nuevamente el programa. ¿Puede explicar por qué se produce un error? Proponga una
+solución.*/
+
+class Cilindro{
+private: 
+	float m_altura;
+	float m_radio;
+	
+public:
+	// Agrego constructor por defecto
+	Cilindro(): m_altura(0), m_radio(0) {}
+	
+	// Constructor con parámetros
+	Cilindro(float altura, float radio): m_altura(altura), m_radio(radio) {}
+	
+	void AsignarDatos(float altura, float radio) {
+		m_altura = altura;
+		m_radio = radio;
+	}
+	
+	float Obtenervolumen() const {
+		return pi * m_radio * m_radio * m_altura;
+	}
+	
+};
+
+int main(){
+	// Instancio las clases
+	Cilindro c1;
+	/// Solicito los datos al usuario
+	float altura, radio;
+	cout << "Ingrese el valor de la altura: ";
+	cin >> altura;
+	cout << "Ingrese el valor del radio: ";
+	cin >> radio;
+	
+	// Asigno los datos a los objetos
+	c1.AsignarDatos(altura, radio);
+	Cilindro c2(5.3, 10.2);
+	
+	cout << "El volumen del cilindro 1 es: " << c1.Obtenervolumen() << endl;
+	cout << "El volumen del cilindro 2 es: " << c2.Obtenervolumen() << endl;
+	
+	return 0;
+} 
