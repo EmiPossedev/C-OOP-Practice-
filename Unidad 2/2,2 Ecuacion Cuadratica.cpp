@@ -1,0 +1,67 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+/*
+Ejercicio 2
+Proponga una clase EcuacionCuadratica para modelar ecuaciones cuadráticas de la forma ax^2 + bx + c = 0 .
+La clase debe incluir:
+1. Un constructor que reciba los valores de los coeficientes a, b y c.
+2. Un método TieneRaicesReales(...) que retorne verdadero si las raíces de la ecuación son reales.
+3. Dos métodos VerRaiz1(...) y VerRaiz2(...) que permitan obtener las raíces reales (en caso de que lo
+sean).
+4. Dos métodos VerParteReal(...) y VerParteImag(...) que permitan obtener las partes real e imaginaria de
+las raíces complejas (en caso de que lo sean).
+5. Cree un programa cliente que utilice un objeto de la clase EcuaciónCuadratica para determinar las raíces de
+una ecuación cuadrática cuyos coeficientes sean ingresados por el usuario, y las muestre en el formato que
+corresponda (según sean reales o complejas).
+*/
+
+// Comienzo de la clase
+class EcuacionCuadratica{
+private:
+    float m_a;
+    float m_b;
+    float m_c;
+    float m_discriminante;
+    
+    void CalcularDiscriminante(){
+        m_discriminante = m_b*m_b - 4 * m_a * m_c;
+    }
+
+public:
+    //Constructor vacio y con coeficientes
+    EcuacionCuadratica(): m_a(1), m_b(0), m_c(0) {
+        CalcularDiscriminante();
+    }
+    EcuacionCuadratica(float a, float b, float c): m_a(a), m_b(b), m_c(c) {
+        CalcularDiscriminante();
+    }
+    
+    bool TieneRaicesReales(){return m_discriminante >= 0;}
+    float VerRaiz1(){return (-m_b + sqrt(m_discriminante))/(2*m_a);}
+    float VerRaiz2(){return (-m_b - sqrt(m_discriminante))/(2*m_a);}
+    float VerParteReal(){return -m_b/(2*m_a);}
+    float VerParteImag(){return sqrt(-m_discriminante)/(2*m_a);}
+    //Final de la clase 
+};
+
+int main(){
+    /// Pido los valores desde el programa cliente y los inicializo
+    float a, b, c;
+    cout << "Ingrese los coeficientes de la ecuacion cuadratica para obtener sus raices: ";
+    cin >> a >> b >> c;
+    /// Instancio la clase con los valores que les da el usuario
+    EcuacionCuadratica eq(a,b,c);
+    if(eq.TieneRaicesReales()){
+        cout << "RAICES REALES" << endl;
+        cout <<"Raiz 1: " << eq.VerRaiz1() << endl;
+        cout <<"Raiz 2: " << eq.VerRaiz2() << endl;
+    } else {
+        cout << "RAICES IMAGINARIAS" << endl;
+        cout << eq.VerParteReal() << " + " << eq.VerParteImag() << "i" << endl;
+        cout << eq.VerParteReal() << " - " << eq.VerParteImag() << "i" << endl;
+    }
+    
+    return 0;
+}
