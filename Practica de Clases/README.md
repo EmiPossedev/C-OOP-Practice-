@@ -1,0 +1,1 @@
+Estos son archivos que fui haciendo de practica de las clases de teoria. 
