@@ -14,8 +14,9 @@ cout << aux.VerNum() << '/' << aux.VerDen() << endl;
 aux = a * b;
 cout << p.VerNum() << '/' << p.VerDen() << endl;
 }
-Si ocurren errores de compilación, explique su causa e implemente las correcciones necesarias. Analice: ¿Qué otro
-operador se utiliza para la clase Racional en éste programa cliente? ¿Por qué no es necesario sobrecargarlo?
+Si ocurren errores de compilación, explique su causa e implemente las correcciones necesarias. 
+Analice: ¿Qué otro operador se utiliza para la clase Racional en éste programa cliente? 
+¿Por qué no es necesario sobrecargarlo?
 */
 class Racional {
 private:
@@ -27,7 +28,24 @@ public:
 	
 };
 
-int main(){
+Racional operator+(Racional r1, Racional r2){
+	Racional aux ( (r1.VerNum()*r2.VerDen() + r2.VerNum()*r1.VerDen()) ,r1.VerDen()*r2.VerDen());
+	return aux;
+}
 
-return 0;
+Racional operator*(Racional r1, Racional r2){
+	
+}
+
+int main() {
+	Racional a(3, 5), b(2, 3);
+	Racional aux = a + b;
+	cout << aux.VerNum() << '/' << aux.VerDen() << endl;
+	
+	/*
+	aux = a * b;
+	cout << p.VerNum() << '/' << p.VerDen() << endl;
+	*/
+	
+	return 0;
 }
