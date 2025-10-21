@@ -29,22 +29,38 @@ public:
 };
 
 Racional operator+(Racional r1, Racional r2){
-	Racional aux ( (r1.VerNum()*r2.VerDen() + r2.VerNum()*r1.VerDen()) ,r1.VerDen()*r2.VerDen());
+	// Creo 2 variables auxiliares para el num y el den
+	int nuevoNum = r1.VerNum() * r2.VerDen() + r2.VerNum() * r1.VerDen();
+	int nuevoDen = r1.VerDen() * r2.VerDen();
+	// Y las devuelvo juntas
+	Racional aux(nuevoNum, nuevoDen);
 	return aux;
 }
 
 Racional operator*(Racional r1, Racional r2){
-	
+	int nuevoNum = r1.VerNum() * r2.VerNum();
+	int nuevoDen = r1.VerDen() * r2.VerDen();
+	Racional aux(nuevoNum, nuevoDen);
+	return aux;
 }
 
 int main() {
 	Racional a(3, 5), b(2, 3);
-	Racional aux = a + b;
+	Racional aux = a + b; /// Operador de asignacion
 	cout << aux.VerNum() << '/' << aux.VerDen() << endl;
 	
-	/*
 	aux = a * b;
-	cout << p.VerNum() << '/' << p.VerDen() << endl;
+	cout << aux.VerNum() << '/' << aux.VerDen() << endl;
+	
+	
+	/// Breve aclaración del operador de asignación
+	/*
+	No es necesario sobrecargarl el operador de asignacion = porque el
+	compilador genera automaticamente un operador de asignacion por defecto
+	Y como la clase Racional solo contiene miembos de tipo primitivo, y 
+	NO GESTIONA RECURSOS DINAMICOS, la asignacion por defecto no genera ningun
+	conflicto. Por lo que no hay necesidad de un comportamiento personalizado
+	para la asignacion en este caso
 	*/
 	
 	return 0;
