@@ -27,16 +27,28 @@ para comparar dos números racionales. Haga uso de dichos operadores
 desde un programa cliente.
 */
 
+/// Ejercicio 3
+/* 
+Implemente sobrecargas para los operadores >> y << para leer un objeto de
+tipo Racional desde la consola (mediante cin) y mostrarlo en pantalla 
+(mediante cout). La lectura se debe realizar leyendo el numerador y denominador 
+por separado (es decir, separados por un espacio o salto de línea). El 
+operador << debe mostrar el numerador y el denominador separados por el 
+carácter '/'. Analice: la sobrecarga de este operador, ¿debe realizarse 
+dentro ofuera de una clase?
+*/
+
 class Racional {
 private:
 	int m_num, m_den;
-public:
+public: 
 	Racional(int num, int den) : m_num(num), m_den(den) { }
 	int VerNum() const { return m_num; }
 	int VerDen() const { return m_den; }
 	
 };
 
+/// Comienzo Ej 1
 Racional operator+(Racional r1, Racional r2){
 	// Creo 2 variables auxiliares para el num y el den
 	int nuevoNum = r1.VerNum() * r2.VerDen() + r2.VerNum() * r1.VerDen();
@@ -52,7 +64,9 @@ Racional operator*(Racional r1, Racional r2){
 	Racional aux(nuevoNum, nuevoDen);
 	return aux;
 }
+/// Fin Ej1
 
+/// Comienzo Ej2
 bool operator<(Racional r1, Racional r2){	
 	return (r1.VerNum()*r2.VerDen() < r2.VerNum()*r1.VerDen());
 }
@@ -78,6 +92,22 @@ bool operator==(Racional r1, Racional r2){
 bool operator!=(Racional r1, Racional r2){
 	return !(r1==r2);
 }
+/// Fin Ej2
+
+/// Comienzo Ej3
+ostream& operator<<(ostream &os, const Racional &r){
+	os << r.VerNum() << "/" << r.VerDen();
+	return os;
+}
+
+istream& operator>>(istream &is, Racional &r){
+	int num, den;
+	is >> num >> den;
+	// Ahora creo un nuevo objeto con los valores leídos y lo devuelvo
+	r = Racional(num,den); // modifico el Racional afectado por el cin
+	return is;
+}
+/// Fin Ej3
 
 int main() {
 	Racional a(3, 5), b(2, 3);
