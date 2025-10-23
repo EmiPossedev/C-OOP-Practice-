@@ -38,14 +38,6 @@ carácter '/'. Analice: la sobrecarga de este operador, ¿debe realizarse
 dentro ofuera de una clase?
 */
 
-/// Ejercicio 4
-/*
-Implemente sobrecargas para pre y post incremento (operador ++) para la 
-clase Racional de los ejercicios anteriores.
-Proponga un programa de prueba donde se note la diferencia entre uno y otro.
-
-*/
-
 class Racional {
 private:
 	int m_num, m_den;
