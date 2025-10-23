@@ -38,6 +38,14 @@ carácter '/'. Analice: la sobrecarga de este operador, ¿debe realizarse
 dentro ofuera de una clase?
 */
 
+/// Ejercicio 4
+/*
+Implemente sobrecargas para pre y post incremento (operador ++) para la 
+clase Racional de los ejercicios anteriores.
+Proponga un programa de prueba donde se note la diferencia entre uno y otro.
+
+*/
+
 class Racional {
 private:
 	int m_num, m_den;
@@ -108,6 +116,19 @@ istream& operator>>(istream &is, Racional &r){
 	return is;
 }
 /// Fin Ej3
+
+/// Comienzo Ej4
+Racional& Racional operator++(){
+	m_num = m_num + m_den; // Sumo al num el den, para qu aumente en 1
+	return *this; // // Devuelvo una referencia al objeto luego de ser modificado
+}
+
+Racional Racional operator++(int){
+	Racional copia(m_num , m_den); // Creo una copia del valor antes de modificarlo
+	m_num = n_num + m_den; // Luego modifico
+	return copia; // Pero retorno el valor sin modificar
+}
+///Fin Ej4
 
 int main() {
 	Racional a(3, 5), b(2, 3);
