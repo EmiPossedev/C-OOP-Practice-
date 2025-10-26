@@ -17,8 +17,8 @@ private:
 public:
 	Complejo(){}
 	Complejo(int real, int complejo) : pReal(real), pCompleja(complejo){}
-	int Ver_ParteReal() const { return pReal; }
-	int Ver_ParteCompleja() const { return pCompleja; }
+	int VerParteReal() const { return pReal; }
+	int VerParteCompleja() const { return pCompleja; }
 };
 
 ostream& operator<<(ostream &os, const Complejo &c){
@@ -33,6 +33,32 @@ istream& operator>>(istream &is, Complejo &r){
 	return is;
 }
 
+Complejo operator+(const Complejo &c1, const Complejo &c2){
+	return Complejo(
+		c1.VerParteReal() + c2.VerParteReal(),
+		c1.verParteCompleja() + c2.VerParteCompleja()
+	);
+}
+
+Complejo operator-(const Complejo &c1, const Complejo &c2){
+	return (
+		c1.VerParteReal() - c2.VerParteReal(),
+		c1.VerParteCompleja() - c2.VerParteCompleja()
+	);
+}
+
+Complejo operator*(const Complejo &c1, const Complejo &c2){
+	int parteReal = c1.VerParteReal() * c2.VerParteReal() - c1.VerParteCompleja() * c2.VerParteCompleja();
+	int parteImaginaria = c1.VerParteReal() * c2.VerParteCompleja() + c1.VerParteCompleja() * c2.VerParteReal();
+	Complejo c3(parteReal,parteImaginaria);
+	return c3;
+}
+
+bool operator==(const Complejo &c1, const Complejo &c2){
+	return (
+		c1.VerParteReal() == c2.VerParteReal() && c1.VerParteCompleja() == c2.VerParteCompleja()
+	); // Si se cumplen estas condiciones, son iguales.
+}
 
 int main() {
 	
