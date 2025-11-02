@@ -19,14 +19,23 @@ int main() {
 	if(!archi,is_open()){
 		throw runtime_error("No se pudo abrir el archivo.");
 	}
-	// Leo las palabras
-	string palabra;
+	// Leo las palabras y las guardo en mi vector
+	 string palabra;
 	cout << "Las palabras son: " << endl;
 	while(archi>>palabra){
 		cout << palabra << ", ";
+		v.push_back(palabra);
 	}
-	
-	
+ archi.close();
+	sort(v.begin(),v.end());
+	ofstream archi2("palabras.txt");
+	if(!archi2.is_open()){
+		 throw runtime_error("No se pudo abrir el archivo.");}
+ for(size_t i = 0; i<v.size(); i++){
+    archi2 << v[i] << endl;
+}
+ archi2.close();
+
 	return 0;
 }
 
