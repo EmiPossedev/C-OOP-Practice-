@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 /* 
@@ -16,23 +18,24 @@ int main() {
 	// Abro el archivo y corroboro que se abra bien
 	vector<string> v;
 	ifstream archi("palabras.txt");
-	if(!archi,is_open()){
-		throw runtime_error("No se pudo abrir el archivo.");
+	if(!archi.is_open()){
+			throw runtime_error("No se pudo abrir el archivo para lectura.");
 	}
 	// Leo las palabras y las guardo en mi vector
-	 string palabra;
+	string palabra;
 	cout << "Las palabras son: " << endl;
 	while(archi>>palabra){
-		cout << palabra << ", ";
-		v.push_back(palabra);
+			cout << palabra << ", ";
+			v.push_back(palabra);
 	}
+	cout << "Se leyeron " << v.size() << " palabras." << endl;
  archi.close();
 	sort(v.begin(),v.end());
 	ofstream archi2("palabras.txt");
 	if(!archi2.is_open()){
-		 throw runtime_error("No se pudo abrir el archivo.");}
- for(size_t i = 0; i<v.size(); i++){
-    archi2 << v[i] << endl;
+		 		throw runtime_error("No se pudo abrir el archivo para escritura.");}
+ for(const auto &palabra : v){
+    archi2 << palabra << endl;
 }
  archi2.close();
 
