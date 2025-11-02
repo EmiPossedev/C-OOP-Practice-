@@ -25,15 +25,18 @@ int main() {
 	string palabra;
 	cout << "Las palabras son: " << endl;
 	while(archi>>palabra){
-			cout << palabra << ", ";
+			cout << palabra << " ";
 			v.push_back(palabra);
 	}
 	cout << "Se leyeron " << v.size() << " palabras." << endl;
  archi.close();
+	// Acá ordeno alfabeticamente las palabras en el vector con la funcion sort()
 	sort(v.begin(),v.end());
 	ofstream archi2("palabras.txt");
 	if(!archi2.is_open()){
 		 		throw runtime_error("No se pudo abrir el archivo para escritura.");}
+
+	cout << "Palabras ordenadas: " << endl;
  for(const auto &palabra : v){
     archi2 << palabra << endl;
 }
