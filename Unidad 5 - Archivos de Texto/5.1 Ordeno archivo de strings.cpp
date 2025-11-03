@@ -32,12 +32,13 @@ int main() {
  archi.close();
 	// Acá ordeno alfabeticamente las palabras en el vector con la funcion sort()
 	sort(v.begin(),v.end());
-	ofstream archi2("palabras.txt");
+	ofstream archi2("palabras.txt",ios::trunc); // bandera trunc para sobreescribir el archivo
 	if(!archi2.is_open()){
 		 		throw runtime_error("No se pudo abrir el archivo para escritura.");}
 
 	cout << "Palabras ordenadas: " << endl;
  for(const auto &palabra : v){
+				cout << palabra << " "; 
     archi2 << palabra << endl;
 }
  archi2.close();
