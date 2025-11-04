@@ -26,35 +26,55 @@ struct Alumno{
 	float n1, n2;
 };
 
-void ModificarAlumno(string &nombreBuscado, float nota1, float nota2, string &nombreArchivo){
-	ifstream archi(nombreArchivo);
+/// Empieza la funcion para modificar mi archivo
+void ModificarAlumno(string &nombreBuscado, float nota1, float nota2){
+	// Leo el archivo y lo paso todo a un vector
+	ifstream archi("lista.txt");
 	if(!archi.is_open()){
 		throw runtime_error("No se pudo abrir el archivo para lectura");
 	}
 	vector<Alumno> v;
 	Alumno a;
 	bool encontrado = false;
-	/// Acá guardo los datos para sobreescribirlos en mi archivo luego
-	while(getline(archi,a.nombre)){
+	while(getline(archi, a.nombre)){
 		archi >> a.n1 >> a.n2;
 		archi.ignore();
-		if(a.nombre == nombreBuscado){
+		if(a.nombre == nombreBuscado){ // acá lo modifico
 			a.n1 = nota1;
 			a.n2 = nota2;
 			encontrado = true;
+			modi
 		}
-		v.push_back(a);
+		v.push_back(a); // agrego los alumnos al vector
 	}
-	archi.close();
-
-	return v;
-}
-
-
+	archi.close(); // cierro el archivo
+	
+	if(!encontrado){
+		cout << "Alumno no encontrado en el archivo." << endl; // Aviso si no lo encuentro y lo muestro por consola
+	}
+	
+	ostream archiSalida("lista.txt");
+	if(!archiSalida.is_open()){
+		throw runtime_error("No se pudo abrir el archivo para escritura");
+	}
+	for(const auto &v : v){
+		archiSalida << alumno.nombre << endl;
+		archiSalida << alumno.n1 << " " << alumno.n2 << endl;
+	}
+	archiSalida.close();
+	if(encontrado){ cout << "Modificación exitosa." << endl;}
+} 
+	/// Termina la funcion para modificar mi archivo 
+	
+	/// Comienza la funcion para crear el archivo promedio
+	void GenerarPromedios(){
+		ifstream archiSalida
+	}
+	
 int main(){
 	vector<Alumno> v;
 	ifstream archi("lista.txt");
 	
-
+	
 	return 0;
 }
