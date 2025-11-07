@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <fstream>
 #include <string>
+#include <vector>
 using namespace std;
 
 /*
@@ -27,9 +28,9 @@ struct Alumno{
 };
 
 /// Empieza la funcion para modificar mi archivo
-void ModificarAlumno(string &nombreBuscado, float nota1, float nota2){
+void ModificarAlumno(const string &nombreBuscado, float nota1, float nota2, const string &nombreArchivo){
 	// Leo el archivo y lo paso todo a un vector
-	ifstream archi("lista.txt");
+	ifstream archi(nombreArchivo);
 	if(!archi.is_open()){
 		throw runtime_error("No se pudo abrir el archivo para lectura");
 	}
@@ -43,7 +44,6 @@ void ModificarAlumno(string &nombreBuscado, float nota1, float nota2){
 			a.n1 = nota1;
 			a.n2 = nota2;
 			encontrado = true;
-			modi
 		}
 		v.push_back(a); // agrego los alumnos al vector
 	}
@@ -53,28 +53,75 @@ void ModificarAlumno(string &nombreBuscado, float nota1, float nota2){
 		cout << "Alumno no encontrado en el archivo." << endl; // Aviso si no lo encuentro y lo muestro por consola
 	}
 	
-	ostream archiSalida("lista.txt");
+	ofstream archiSalida(nombreArchivo);
 	if(!archiSalida.is_open()){
 		throw runtime_error("No se pudo abrir el archivo para escritura");
 	}
-	for(const auto &v : v){
+	for(const auto &alumno : v){
 		archiSalida << alumno.nombre << endl;
 		archiSalida << alumno.n1 << " " << alumno.n2 << endl;
 	}
 	archiSalida.close();
 	if(encontrado){ cout << "Modificación exitosa." << endl;}
-} 
-	/// Termina la funcion para modificar mi archivo 
-	
-	/// Comienza la funcion para crear el archivo promedio
-	void GenerarPromedios(){
-		ifstream archiSalida
+}
+/// Termina la funcion para modificar mi archivo 
+
+/// Comienza la funcion para crear el archivo promedio
+void GenerarPromedios(const string &nombreArchivo){
+	// Aqui leo el archivo y lo guardo en un vector que voy a utilizar para escritura
+	ifstream archiEntrada(nombreArchivo);
+	if(!archiEntrada.is_open()){
+		throw runtime_error("No se pudo abrir el archivo para lectura.");
 	}
-	
-int main(){
 	vector<Alumno> v;
-	ifstream archi("lista.txt");
+	Alumno a;
+	while(getline(archiEntrada,a.nombre)){
+		archiEntrada >> a.n1 >> a.n2;
+		archiEntrada.ignore();
+		v.push_back(a);
+	}
+	archiEntrada.close(); // NO olvidarse de cerrar el archivo
 	
+	ofstream archiSalida("promedios.txt");
+	if(!archiSalida.is_open()){
+		throw runtime_error("No se pudo abrir el archivo para escritura.");
+	}
+	// Aquí hago el encabezado con Nombre, Promedio y Condicion
+	// decido el espacio en base a la cant de caracteres que reservé por columna
+	archiSalida << left << setw(20) << "Nombre"
+				<< right << setw(10) << "Promedio"
+				<< setw(15) << "Condición" << endl;
+	archiSalida << string(45,'-') << endl; // linea separadora 
+	
+	for(const Alumno &alumno: v){
+		float promedio = (alumno.n1 + alumno.n2) / 2.0;
+		string condicion; 
+		if(promedio >= 60){
+			condicion = "aprobado";
+		} else { condicion = "reprobado";}
+		
+		archiSalida << left << setw(20) << alumno.nombre
+			<< right << setw(10) << fixed << setprecision(2) << promedio
+			<< setw(15) << condicion << endl;
+		
+	}
+	archiSalida.close();
+	cout << "Archivo promedios.txt creado exitosamente." << endl;
+}
+/// Termina la funcion para crear el archivo promedio
+int main(){
+	string nombreArchivo;
+	cout << "Ingrese el nombre del archivo: ";
+	cin >> nombreArchivo;
+	cin.ignore();
+	string nombreAlumno;
+	cout << "Ingrese el nombre del alumno que quiera modificar: ";
+	getline(cin,nombreAlumno);
+	float nota1, nota2;
+	cout <<"Ingrese las notas del primer y segundo examen: ";
+	cin >> nota1 >> nota2;	
+	ModificarAlumno(nombreAlumno,nota1,nota2,nombreArchivo);
+	GenerarPromedios(nombreArchivo);
 	
 	return 0;
 }
