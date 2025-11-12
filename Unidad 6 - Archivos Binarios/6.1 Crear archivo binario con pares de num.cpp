@@ -28,7 +28,7 @@ int main(){
 		Par p;
 		p.entero = 100 + rand() % (500 - 100 + 1);
 		p.flotante = 100.0 + rand() % (500 - 100 + 1);
-		bin.write((char*) &p, sizeof(p));
+		bin.write(reinterpret_cast<char*> (&p), sizeof(p));
 	}
 	bin.close();
 	cout << "Se escribió el archivo con los 200 pares" << endl;
