@@ -7,7 +7,7 @@ a) Escriba a través de un programa C++ un archivo binario llamado grupo.dat, fo
 de 200 pares de números generados aleatoriamente. Cada par de datos se conforma por un entero y flotante.
 b) Escriba otro programa que lea el archivo generado por el primero para verificar si se escribieron 
 correctamente.
-/*
+*/
 
 struct Par{
 	int entero;
