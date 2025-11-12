@@ -18,6 +18,7 @@ struct Par{
 
 
 int main() {
+	
 	/// Solicito los datos al usuario
 	string nombreArchivoBinario;
 	cout << "Ingrese el nombre del archivo binario que desea(con la extension .dat): ";
@@ -31,9 +32,11 @@ int main() {
 	int pos;
 	cout << "Ingrese en que posición desea agregar el par: ";
 	cin >> pos;
+	
 	/// Luego me posiciono y escribo en la posicion
 	bin.seekp((pos-1) * sizeof(p)); // En pos-1 porque el usuario ingresa en base 1
 	bin.write(reinterpret_cast<char*>(&p), sizeof(p)); // Sobreescribo la posicion
+	
 	/// Ahora leo el archivo y lo muestro en consola
 	cout << "Los pares que están en mi archivo son: " << endl;
 	bin.seekg(0); // voy al inicio del archivo porque el puntero quedó al final
