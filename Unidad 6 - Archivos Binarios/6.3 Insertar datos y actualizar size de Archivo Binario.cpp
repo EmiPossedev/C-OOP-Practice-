@@ -26,14 +26,58 @@ int main() {
 	if(!bin.is_open()){ 
 		throw runtime_error("Error: No se pudo abrir el archivo.");} //Compruebo
 	
-	/// Calculo la cantidad actual de enteros
-	bin.seek(0, ios::end);
+	/// Paso 1: Calculo la cantidad actual de enteros
+	bin.seekg(0, ios::end);
 	int cantEnterosActual = bin.tellg() / sizeof(int);
 	cout << "Cantidad de enteros actual: " << cantEnterosActual << endl;
-	for(int i = 0; i<cantEnterosActual; i++){
-			
+
+	/// Paso 2: Busco posicion de inserción
+	int posInsercion = 0;
+	bin.seekg(0, ios::beg);
+
+	int nro;
+	while(bin.read(reinterpret_cast<char*>(&nro), sizeof(int)) ){
+		if(nro >= nuevoNumero){
+					// Encontramos la posicion y dejamos apuntada la posicion
+				 break;
 		}
+		posInsercion++;
+	}
 	
+	cout << "Posicion de insercion: " << posInsercion << endl;
+
+	/// Paso 3: Desplazar los elementos hacia la derecha
+	 // Empiezo desde el final y voy hacia atrás
+		for(int i = cantEnterosActual - 1; i>=posInsercion; i--){
+			// Leo el elemento en posición i
+			int aux;
+			bin.seekg(i * sizeof(int), ios::beg);
+			bin.read(reinterpret_cast<char*>(&aux), sizeof(int));
+			// Lo escribo en posicion i+1
+			bin.seekp((i+1) * sizeof(int), ios::beg);
+			bin.write(reinterpret_cast<char*>(&aux), sizeof(int));
+			}
+/// Paso 4: Inserto el nuevo número
+			bin.seekp(posInsercion * sizeof(int), ios::beg);
+			bin.write(reinterpret<char*>(&nuevoNumero), sizeof(int));
+			
+			bin.close(); // cierro el archivo
+		
+			cout << "El numero " << nuevoNumero << " fue insertado exitosamente." << endl;
+
+	/// Muestro el resultado
+			// Abro el archivo para lectura
+			bin.open(nombreArchivo, ios::binary | ios::in);
+			int cantMostrar;
+			cout << "Enteros en el archivo" << endl << "Cuantos enteros desea ver del archivo? ";
+			cin >> cantMostrar;
+			int contador = 0, intLeido;
+			while(bin.read(reinterpret_cast<char*>(&intLeido), sizeof(int)) && contador < cantMostrar){
+								cout << "Entero "<< contador <<": " << IntLeido << endl;
+								contador++; 
+			}
+			bin.close();
+
 	return 0;
 }
 
