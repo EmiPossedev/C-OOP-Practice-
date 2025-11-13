@@ -59,7 +59,7 @@ int main() {
 			}
 /// Paso 4: Inserto el nuevo número
 			bin.seekp(posInsercion * sizeof(int), ios::beg);
-			bin.write(reinterpret<char*>(&nuevoNumero), sizeof(int));
+			bin.write(reinterpret_cast<char*>(&nuevoNumero), sizeof(int));
 			
 			bin.close(); // cierro el archivo
 		
@@ -73,7 +73,7 @@ int main() {
 			cin >> cantMostrar;
 			int contador = 0, intLeido;
 			while(bin.read(reinterpret_cast<char*>(&intLeido), sizeof(int)) && contador < cantMostrar){
-								cout << "Entero "<< contador <<": " << IntLeido << endl;
+								cout << "Entero "<< contador <<": " << intLeido << endl;
 								contador++; 
 			}
 			bin.close();
