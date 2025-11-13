@@ -36,7 +36,7 @@ void CorregirArchivo(string nombreArchivo){
 
 int main(){
 	cout << "Iniciando el procesamiento de datos..." << endl;
-	for(int i=1; i<78; i++){
+	for(int i=1; i<=78; i++){
 		string nombreArchivoBinario = "design" + to_string(i) + ".wds";
 		CorregirArchivo(nombreArchivoBinario);
 	}
