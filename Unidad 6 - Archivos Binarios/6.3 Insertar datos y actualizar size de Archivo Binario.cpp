@@ -30,7 +30,9 @@ int main() {
 	bin.seek(0, ios::end);
 	int cantEnterosActual = bin.tellg() / sizeof(int);
 	cout << "Cantidad de enteros actual: " << cantEnterosActual << endl;
-	for(int i = 0; i<cantEnterosActual; i
+	for(int i = 0; i<cantEnterosActual; i++){
+			
+		}
 	
 	return 0;
 }
